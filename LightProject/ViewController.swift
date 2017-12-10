@@ -9,7 +9,14 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    var light = true
+    
+    @IBAction func PressButton(_ sender: Any) {
+        light = !light
+        view.backgroundColor = light ? .white : .black
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
