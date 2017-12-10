@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
     
@@ -15,6 +16,18 @@ class ViewController: UIViewController {
     @IBAction func pressButton(_ sender: Any) {
         light = (light == 0) ? 1 : (light == 1) ? 2 : 0
         view.backgroundColor = (light == 0) ? .white : (light == 1) ? .black : .gray
+        
+        let device = AVCaptureDevice.default(for: AVMediaType.video)
+        
+        if let dev = device, dev.hasTorch {
+            do {
+                try dev.lockForConfiguration()
+                dev.torchMode = dev.torchMode == AVCaptureDevice.TorchMode.on ?  .off : .on
+                dev.unlockForConfiguration()
+            } catch {
+                print(error)
+            }
+        }
     }
     
     override func viewDidLoad() {
